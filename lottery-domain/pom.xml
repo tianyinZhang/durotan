@@ -11,4 +11,12 @@
 
     <artifactId>lottery-domain</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.tianyin</groupId>
+            <artifactId>lottery-infrastructure</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 </project>
