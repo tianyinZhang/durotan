@@ -4,17 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
+/**
+ * @description:
+ * @author：Tianyin Zhang
+ * @date: 2023/4/20
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AwardRateInfo {
+public class DrawAwardInfo {
 
-    // 奖品ID
+    /**
+     * 奖品ID
+     */
     private String awardId;
 
-    // 中奖概率
-    private BigDecimal awardRate;
-
+    /**
+     * 奖品名称
+     */
+    private String awardName;
 }

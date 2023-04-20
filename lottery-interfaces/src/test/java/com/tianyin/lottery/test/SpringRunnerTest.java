@@ -2,6 +2,8 @@ package com.tianyin.lottery.test;
 
 import com.alibaba.fastjson.JSON;
 import com.tianyin.lottery.domain.strategy.model.req.DrawReq;
+import com.tianyin.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
+import com.tianyin.lottery.domain.strategy.service.draw.AbstractDrawBase;
 import com.tianyin.lottery.domain.strategy.service.draw.IDrawExec;
 import com.tianyin.lottery.infrastructure.dao.IActivityDao;
 import com.tianyin.lottery.infrastructure.po.Activity;
@@ -28,11 +30,10 @@ public class SpringRunnerTest {
 
     @Test
     public void test_drawExec() {
-        drawExec.doDrawExecute(new DrawReq("Ty1", 10001L));
-        drawExec.doDrawExecute(new DrawReq("Ty2", 10001L));
-        drawExec.doDrawExecute(new DrawReq("Ty3", 10001L));
-        drawExec.doDrawExecute(new DrawReq("Ty4", 10001L));
-        drawExec.doDrawExecute(new DrawReq("Ty5", 10001L));
+        for (int i = 0; i < 100; ++i) {
+            String uId = "Ty" + String.valueOf(i);
+            drawExec.doDrawExecute(new DrawReq(uId, 10001L));
+        }
     }
 
     @Test

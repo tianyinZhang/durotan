@@ -1,50 +1,42 @@
 package com.tianyin.lottery.domain.strategy.service.draw.impl;
 
-import com.tianyin.lottery.domain.strategy.model.aggregates.StrategyRich;
-import com.tianyin.lottery.domain.strategy.model.req.DrawReq;
-import com.tianyin.lottery.domain.strategy.model.res.DrawResult;
 import com.tianyin.lottery.domain.strategy.repository.IStrategyRepository;
 import com.tianyin.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
-import com.tianyin.lottery.domain.strategy.service.draw.DrawBase;
-import com.tianyin.lottery.domain.strategy.service.draw.IDrawExec;
-import com.tianyin.lottery.infrastructure.po.Award;
-import com.tianyin.lottery.infrastructure.po.Strategy;
+import com.tianyin.lottery.domain.strategy.service.draw.AbstractDrawBase;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service("drawExec")
-public class DrawExecImpl extends DrawBase implements IDrawExec {
+public class DrawExecImpl extends AbstractDrawBase {
 
     @Resource
     IStrategyRepository strategyRepository;
 
     @Override
-    public DrawResult doDrawExecute(DrawReq req) {
+    protected List<String> queryExcludeAwardIds(Long strategyId) {
+        List<String> awardList = strategyRepository.queryNoStockStrategyAwardList(strategyId);
+        log.info("执行抽奖策略 strategyId：{} 排除的奖品ID列表：{}", strategyId, awardList);
+        return awardList;
+    }
 
-        // 1. 打印日志
-        log.info("执行抽奖 用户id：{}， 策略ID：{}", req.getUId(), req.getStrategyId());
+    @Override
+    protected String drawAlgorithm(Long strategyId, IDrawAlgorithm drawAlgorithm, List<String> excludeAwardIds) {
 
-        // 2. 获取相关数据用于初始化
-        StrategyRich strategyRich = strategyRepository.queryStrategyRich(req.getStrategyId());
-        Strategy strategy = strategyRich.getStrategy();
-        IDrawAlgorithm drawAlgorithm = drawAlgorithmMap.get(strategy.getStrategyMode());
+        // 1. 执行抽奖策略
+        String awardId = drawAlgorithm.randomDraw(strategyId, excludeAwardIds);
 
-        // 3. 完成初始化
-        checkAndInitRateData(req.getStrategyId(), strategy.getStrategyMode(), strategyRich.getStrategyDetailList());
+        // 2. 判断抽奖结果
+        if (null == awardId) return null;
 
-        // 4. 根据选定的策略方式抽奖
-        String awardId = drawAlgorithm.randomDraw(req.getStrategyId(), new ArrayList<>());
+        // 3. 若抽奖成功，扣减对应奖品库存
+        // 先采用数据库行级锁（通常不满足并发需求） 后续优化为 Redis 分布式锁
+        boolean isSuccess = strategyRepository.deductStock(strategyId, awardId);
 
-        // 5. 获取奖品信息并打印日志
-        Award award = strategyRepository.queryAwardInfo(awardId);
-        log.info("中奖用户：{}, 奖品ID：{}, 奖品名称：{}", req.getUId(), award.getAwardId(), award.getAwardContent());
-
-        // 6. 封装结果
-        return new DrawResult(req.getUId(), strategy.getStrategyId(), award.getAwardId(), award.getAwardName());
+        return isSuccess ? awardId : null;
 
     }
 

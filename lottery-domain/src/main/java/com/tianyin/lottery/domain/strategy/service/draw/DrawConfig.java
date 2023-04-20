@@ -1,5 +1,6 @@
 package com.tianyin.lottery.domain.strategy.service.draw;
 
+import com.tianyin.lottery.common.Constants;
 import com.tianyin.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
 
 import javax.annotation.PostConstruct;
@@ -7,11 +8,15 @@ import javax.annotation.Resource;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-// 需要被继承，故不加注解
+/**
+ * @description: 配置抽奖策略
+ * @author：Tianyin Zhang
+ * @date: 2023/4/18
+ */
 public class DrawConfig {
 
     @Resource
-    private IDrawAlgorithm defaultRateRandomDrawAlgorithm;
+    private IDrawAlgorithm entiretyRateRandomDrawAlgorithm;
 
     @Resource
     private IDrawAlgorithm singleRateRandomDrawAlgorithm;
@@ -20,8 +25,8 @@ public class DrawConfig {
 
     @PostConstruct
     public void init() {
-        drawAlgorithmMap.put(1, singleRateRandomDrawAlgorithm);
-        drawAlgorithmMap.put(2, defaultRateRandomDrawAlgorithm);
+        drawAlgorithmMap.put(Constants.StrategyMode.SINGLE.getCode(), singleRateRandomDrawAlgorithm);
+        drawAlgorithmMap.put(Constants.StrategyMode.ENTIRETY.getCode(), entiretyRateRandomDrawAlgorithm);
     }
 
 }

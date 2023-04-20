@@ -22,12 +22,12 @@ public class SingleRateRandomDrawAlgorithm extends BaseAlgorithm {
         assert rateTuple != null;
 
         // 随机索引
-        int randomVal = new SecureRandom().nextInt(100) + 1;
+        int randomVal = this.generateSecureRandomIntCode(100);
         int idx = super.hashIdx(randomVal);
 
         // 判断是否被排除，并返回结果
         String awardId = rateTuple[idx];
-        if (excludeAwardIds.contains(awardId)) return "未中奖";
+        if (excludeAwardIds.contains(awardId)) return null;
 
         return awardId;
 
