@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @description:
+ * @description: 中奖奖品信息
  * @author：Tianyin Zhang
  * @date: 2023/4/20
  */
@@ -20,7 +20,17 @@ public class DrawAwardInfo {
     private String awardId;
 
     /**
+     * 奖品类型
+     */
+    private Integer awardType;
+
+    /**
      * 奖品名称
      */
     private String awardName;
+
+    /**
+     * 奖品内容
+     */
+    private String awardContent;
 }
