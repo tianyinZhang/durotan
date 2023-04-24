@@ -1,7 +1,7 @@
 package com.tianyin.lottery.domain.strategy.repository;
 
 import com.tianyin.lottery.domain.strategy.model.aggregates.StrategyRich;
-import com.tianyin.lottery.infrastructure.po.Award;
+import com.tianyin.lottery.domain.strategy.model.vo.AwardBriefVO;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface IStrategyRepository {
 
     StrategyRich queryStrategyRich(Long strategyId);
 
-    Award queryAwardInfo(String awardId);
+    AwardBriefVO queryAwardInfo(String awardId);
 
     /**
      * 查询策略下没有库存的奖品列表

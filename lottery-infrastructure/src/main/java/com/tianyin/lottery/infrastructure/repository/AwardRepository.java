@@ -1,10 +1,10 @@
-package com.tianyin.lottery.domain.award.repository.impl;
+package com.tianyin.lottery.infrastructure.repository;
 
 import com.tianyin.lottery.domain.award.repository.IAwardRepository;
 import org.springframework.stereotype.Component;
 
 /**
- * @description:
+ * @description: 奖品仓储实现类
  * @author：Tianyin Zhang
  * @date: 2023/4/21
  */

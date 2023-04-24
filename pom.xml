@@ -46,7 +46,7 @@
         <commons-dbcp2.version>2.6.0</commons-dbcp2.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <!-- 日志 -->
-        <slf4j.version>1.7.7</slf4j.version>
+        <slf4j.version>1.7.30</slf4j.version>
         <logback.version>1.0.9</logback.version>
         <!-- 其他服务 -->
         <dubbo.version>2.6.6</dubbo.version>

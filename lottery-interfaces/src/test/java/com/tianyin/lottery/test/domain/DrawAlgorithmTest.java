@@ -1,4 +1,4 @@
-package com.tianyin.lottery.test;
+package com.tianyin.lottery.test.domain;
 
 import com.tianyin.lottery.domain.strategy.model.vo.AwardRateInfo;
 import com.tianyin.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;

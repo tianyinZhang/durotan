@@ -60,12 +60,17 @@
 
         <dependency>
             <groupId>com.tianyin</groupId>
-            <artifactId>lottery-application</artifactId>
+            <artifactId>lottery-infrastructure</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.tianyin</groupId>
             <artifactId>lottery-rpc</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tianyin</groupId>
+            <artifactId>lottery-domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

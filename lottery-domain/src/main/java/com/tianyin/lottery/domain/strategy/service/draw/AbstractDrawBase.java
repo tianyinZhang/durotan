@@ -1,16 +1,16 @@
 package com.tianyin.lottery.domain.strategy.service.draw;
 
 import com.tianyin.lottery.common.Constants;
+import com.tianyin.lottery.domain.activity.model.vo.StrategyDetailVO;
 import com.tianyin.lottery.domain.strategy.model.aggregates.StrategyRich;
 import com.tianyin.lottery.domain.strategy.model.res.DrawResult;
 import com.tianyin.lottery.domain.strategy.model.req.DrawReq;
+import com.tianyin.lottery.domain.strategy.model.vo.AwardBriefVO;
 import com.tianyin.lottery.domain.strategy.model.vo.AwardRateInfo;
 import com.tianyin.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import com.tianyin.lottery.domain.strategy.model.vo.StrategyBriefVO;
 import com.tianyin.lottery.domain.strategy.repository.IStrategyRepository;
 import com.tianyin.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
-import com.tianyin.lottery.infrastructure.po.Award;
-import com.tianyin.lottery.infrastructure.po.Strategy;
-import com.tianyin.lottery.infrastructure.po.StrategyDetail;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
@@ -34,7 +34,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
 
         // 1. 获取抽奖策略
         StrategyRich strategyRich = strategyRepository.queryStrategyRich(req.getStrategyId());
-        Strategy strategy = strategyRich.getStrategy();
+        StrategyBriefVO strategy = strategyRich.getStrategy();
 
         // 2. 校验抽奖策略散射是否已初始化至内存
         this.checkAndInitRateData(strategy.getStrategyId(), strategy.getStrategyMode(), strategyRich.getStrategyDetailList());
@@ -74,7 +74,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
      * @param strategyMode 人为规定的映射
      * @param strategyDetailList 策略细节List
      */
-    public void checkAndInitRateData(Long strategyId, Integer strategyMode, List<StrategyDetail> strategyDetailList) {
+    public void checkAndInitRateData(Long strategyId, Integer strategyMode, List<StrategyDetailVO> strategyDetailList) {
 
         // 获取对应的抽奖算法实现类
         IDrawAlgorithm drawAlgorithm = drawAlgorithmMap.get(strategyMode);
@@ -84,7 +84,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
 
         // 将 strategyDetailList 转换为 awardRateInfoList 实现初始化
         List<AwardRateInfo> awardRateInfoList = new ArrayList<>(strategyDetailList.size());
-        for (StrategyDetail strategyDetail : strategyDetailList)
+        for (StrategyDetailVO strategyDetail : strategyDetailList)
             awardRateInfoList.add(new AwardRateInfo(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
 
         drawAlgorithm.initRateTuple(strategyId, awardRateInfoList);
@@ -99,7 +99,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
             return new DrawResult(uId, strategyId, Constants.DrawState.FAIL.getCode());
         }
 
-        Award award = super.queryAwardInfoByAwardId(awardId);
+        AwardBriefVO award = super.queryAwardInfoByAwardId(awardId);
         DrawAwardInfo drawAwardInfo = new DrawAwardInfo(award.getAwardId(), award.getAwardType(), award.getAwardName(), award.getAwardContent());
         log.info("执行抽奖策略完成【已中奖】，用户：{} 策略ID：{} 奖品ID：{} 奖品名称： {}", uId, strategyId, award.getAwardId(), award.getAwardName());
 

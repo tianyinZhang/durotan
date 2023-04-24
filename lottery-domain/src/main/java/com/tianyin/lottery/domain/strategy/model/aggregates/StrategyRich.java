@@ -1,7 +1,7 @@
 package com.tianyin.lottery.domain.strategy.model.aggregates;
 
-import com.tianyin.lottery.infrastructure.po.Strategy;
-import com.tianyin.lottery.infrastructure.po.StrategyDetail;
+import com.tianyin.lottery.domain.activity.model.vo.StrategyDetailVO;
+import com.tianyin.lottery.domain.strategy.model.vo.StrategyBriefVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -18,9 +18,9 @@ public class StrategyRich {
     private Long strategyId;
 
     // 策略配置
-    private Strategy strategy;
+    private StrategyBriefVO strategy;
 
     // 策略明细
-    private List<StrategyDetail> strategyDetailList;
+    private List<StrategyDetailVO> strategyDetailList;
 
 }
