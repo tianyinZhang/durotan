@@ -4,11 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.tianyin.lottery.common.Constants;
 import com.tianyin.lottery.domain.activity.model.aggregates.ActivityConfigRich;
 import com.tianyin.lottery.domain.activity.model.req.ActivityConfigReq;
+import com.tianyin.lottery.domain.activity.model.req.PartakeReq;
+import com.tianyin.lottery.domain.activity.model.res.PartakeResult;
 import com.tianyin.lottery.domain.activity.model.vo.ActivityVO;
 import com.tianyin.lottery.domain.activity.model.vo.AwardVO;
 import com.tianyin.lottery.domain.activity.model.vo.StrategyDetailVO;
 import com.tianyin.lottery.domain.activity.model.vo.StrategyVO;
 import com.tianyin.lottery.domain.activity.service.deploy.IActivityDeploy;
+import com.tianyin.lottery.domain.activity.service.partake.IActivityPartake;
 import com.tianyin.lottery.domain.activity.service.stateflow.IStateHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -39,11 +42,11 @@ public class ActivityTest {
     @Resource
     private IStateHandler stateHandler;
 
+    @Resource
+    private IActivityPartake activityPartake;
+
     private ActivityConfigRich activityConfigRich;
 
-    /**
-     * @TODO 后面编写ID生成策略
-     */
     private final Long activityId = 120981321L;
 
     @Before
@@ -168,6 +171,14 @@ public class ActivityTest {
         log.info("审核通过，测试：{}", JSON.toJSONString(stateHandler.checkPass(120981321L, Constants.ActivityState.ARRAIGNMENT)));
         log.info("运行活动，测试：{}", JSON.toJSONString(stateHandler.doing(120981321L, Constants.ActivityState.PASS)));
         log.info("二次提审，测试：{}", JSON.toJSONString(stateHandler.checkPass(120981321L, Constants.ActivityState.EDIT)));
+    }
+
+    @Test
+    public void test_activityPartake() {
+        PartakeReq req = new PartakeReq("Uhdgkw766120d", 100001L);
+        PartakeResult res = activityPartake.doPartake(req);
+        log.info("请求参数： {}", JSON.toJSONString(req));
+        log.info("返回结果： {}", JSON.toJSONString(res));
     }
 
 }
