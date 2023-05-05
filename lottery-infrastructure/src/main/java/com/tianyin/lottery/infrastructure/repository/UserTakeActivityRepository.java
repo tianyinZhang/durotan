@@ -11,6 +11,7 @@ import com.tianyin.lottery.infrastructure.po.UserStrategyExport;
 import com.tianyin.lottery.infrastructure.po.UserTakeActivity;
 import com.tianyin.lottery.infrastructure.po.UserTakeActivityCount;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -20,7 +21,7 @@ import java.util.Date;
  * @author：Tianyin Zhang
  * @date: 2023/4/28
  */
-@Component
+@Repository
 public class UserTakeActivityRepository implements IUserTakeActivityRepository {
 
     @Resource

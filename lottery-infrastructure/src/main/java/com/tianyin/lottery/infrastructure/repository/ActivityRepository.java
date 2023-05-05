@@ -8,6 +8,7 @@ import com.tianyin.lottery.infrastructure.dao.*;
 import com.tianyin.lottery.infrastructure.po.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
  * @author：Tianyin Zhang
  * @date: 2023/4/23
  */
-@Component
+@Repository
 public class ActivityRepository implements IActivityRepository {
 
     @Resource
