@@ -1,7 +1,7 @@
 package com.tianyin.lottery.domain.strategy.model.res;
 
 import com.tianyin.lottery.common.Constants;
-import com.tianyin.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import com.tianyin.lottery.domain.strategy.model.vo.DrawAwardVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,7 +32,7 @@ public class DrawResult {
     /**
      * 奖品信息
      */
-    private DrawAwardInfo drawAwardInfo;
+    private DrawAwardVO drawAwardInfo;
 
     public DrawResult(String uId, Long strategyId, Integer drawState) {
         this.uId = uId;

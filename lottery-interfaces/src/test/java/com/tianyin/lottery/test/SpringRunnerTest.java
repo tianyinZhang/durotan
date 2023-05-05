@@ -7,7 +7,7 @@ import com.tianyin.lottery.domain.award.service.factory.DistributionGoodsFactory
 import com.tianyin.lottery.domain.award.service.goods.IDistributionGoods;
 import com.tianyin.lottery.domain.strategy.model.req.DrawReq;
 import com.tianyin.lottery.domain.strategy.model.res.DrawResult;
-import com.tianyin.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import com.tianyin.lottery.domain.strategy.model.vo.DrawAwardVO;
 import com.tianyin.lottery.domain.strategy.service.draw.IDrawExec;
 import com.tianyin.lottery.infrastructure.dao.IActivityDao;
 import com.tianyin.lottery.infrastructure.po.Activity;
@@ -54,7 +54,7 @@ public class SpringRunnerTest {
         }
 
         // 3. 封装发奖参数
-        DrawAwardInfo drawAwardInfo = drawResult.getDrawAwardInfo();
+        DrawAwardVO drawAwardInfo = drawResult.getDrawAwardInfo();
         GoodsReq goodsReq = new GoodsReq(drawResult.getUId(), "1821693217682196"
                 , drawAwardInfo.getAwardId(), drawAwardInfo.getAwardName(), drawAwardInfo.getAwardContent());
 

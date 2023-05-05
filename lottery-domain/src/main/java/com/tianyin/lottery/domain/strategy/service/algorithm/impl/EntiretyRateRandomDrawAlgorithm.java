@@ -1,6 +1,6 @@
 package com.tianyin.lottery.domain.strategy.service.algorithm.impl;
 
-import com.tianyin.lottery.domain.strategy.model.vo.AwardRateInfo;
+import com.tianyin.lottery.domain.strategy.model.vo.AwardRateVO;
 import com.tianyin.lottery.domain.strategy.service.algorithm.BaseAlgorithm;
 import org.springframework.stereotype.Component;
 
@@ -24,14 +24,14 @@ public class EntiretyRateRandomDrawAlgorithm extends BaseAlgorithm {
         // 初始化剩余奖品集合，同时计算初始化一个 List<AwardRateInfo> 类型的变量 differenceAwardRateList
         // 遍历对应策略的awardRateIntervalValList，若奖品ID在排除列表中则跳过
         // 否则，将awardRateInfo加入到differenceAwardRateList列表中，并将其抽中概率加入到differenceDenominator中
-        List<AwardRateInfo> differenceAwardRateList = new ArrayList<>();
-        List<AwardRateInfo> awardRateIntervalValList = awardRateInfoMap.get(strategyId);
-        for (AwardRateInfo awardRateInfo : awardRateIntervalValList) {
-            if (excludeAwardIds.contains(awardRateInfo.getAwardId())) {
+        List<AwardRateVO> differenceAwardRateList = new ArrayList<>();
+        List<AwardRateVO> awardRateIntervalValList = awardRateInfoMap.get(strategyId);
+        for (AwardRateVO awardRateVO : awardRateIntervalValList) {
+            if (excludeAwardIds.contains(awardRateVO.getAwardId())) {
                 continue;
             }
-            differenceAwardRateList.add(awardRateInfo);
-            differenceDenominator = differenceDenominator.add(awardRateInfo.getAwardRate());
+            differenceAwardRateList.add(awardRateVO);
+            differenceDenominator = differenceDenominator.add(awardRateVO.getAwardRate());
         }
 
         // 前置判断：奖池已空 或 只剩一个奖品的情况
@@ -46,11 +46,11 @@ public class EntiretyRateRandomDrawAlgorithm extends BaseAlgorithm {
         // 2. 无需保存元祖，与随机数匹配时直接返回
         String awardId = null;
         int cursorVal = 0;
-        for (AwardRateInfo awardRateInfo : differenceAwardRateList) {
-            int rateVal = awardRateInfo.getAwardRate().divide(differenceDenominator, 2, BigDecimal.ROUND_UP)
+        for (AwardRateVO awardRateVO : differenceAwardRateList) {
+            int rateVal = awardRateVO.getAwardRate().divide(differenceDenominator, 2, BigDecimal.ROUND_UP)
                     .multiply(new BigDecimal(100)).intValue();
             if (randomVal <= cursorVal + rateVal) {
-                awardId = awardRateInfo.getAwardId();
+                awardId = awardRateVO.getAwardId();
                 break;
             }
             cursorVal += rateVal;

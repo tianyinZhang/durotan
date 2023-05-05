@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AwardRateInfo {
+public class AwardRateVO {
 
     // 奖品ID
     private String awardId;

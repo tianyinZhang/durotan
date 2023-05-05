@@ -1,6 +1,6 @@
 package com.tianyin.lottery.domain.strategy.service.algorithm;
 
-import com.tianyin.lottery.domain.strategy.model.vo.AwardRateInfo;
+import com.tianyin.lottery.domain.strategy.model.vo.AwardRateVO;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
@@ -22,24 +22,24 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm {
     protected Map<Long, String[]> rateTupleMap = new ConcurrentHashMap<>();
 
     // 奖品区间概率，strategyId => List<AwardRateInfo>
-    protected Map<Long, List<AwardRateInfo>> awardRateInfoMap = new ConcurrentHashMap<>();
+    protected Map<Long, List<AwardRateVO>> awardRateInfoMap = new ConcurrentHashMap<>();
 
     @Override
-    public void initRateTuple(Long strategyId, List<AwardRateInfo> awardRateInfoList) {
+    public void initRateTuple(Long strategyId, List<AwardRateVO> awardRateVOList) {
 
-        awardRateInfoMap.put(strategyId, awardRateInfoList);
+        awardRateInfoMap.put(strategyId, awardRateVOList);
         // 利用浅拷贝获取rateTupleMap中对应的引用
         // computeIfAbsent：若不存在对应的key，则返回新的String数组
         String[] rateTuple = rateTupleMap.computeIfAbsent(strategyId, k -> new String[RATE_TUPLE_LENGTH]);
 
         // 当前游标
         int cursorVal = 0;
-        for (AwardRateInfo awardRateInfo : awardRateInfoList) {
+        for (AwardRateVO awardRateVO : awardRateVOList) {
             // 将概率乘100，便于迭代操作
-            int rateVal = awardRateInfo.getAwardRate().multiply(new BigDecimal(100)).intValue();
+            int rateVal = awardRateVO.getAwardRate().multiply(new BigDecimal(100)).intValue();
             // 循环填充概率范围值
             for (int i = cursorVal + 1; i <= (cursorVal + rateVal); i++) {
-                rateTuple[hashIdx(i)] = awardRateInfo.getAwardId();
+                rateTuple[hashIdx(i)] = awardRateVO.getAwardId();
             }
 
             cursorVal += rateVal;

@@ -1,6 +1,6 @@
 package com.tianyin.lottery.domain.strategy.service.algorithm;
 
-import com.tianyin.lottery.domain.strategy.model.vo.AwardRateInfo;
+import com.tianyin.lottery.domain.strategy.model.vo.AwardRateVO;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ public interface IDrawAlgorithm {
      * 再利用斐波那契散射算法，将奖品分布散射到数组中，实现元祖中有对应比例的元素
      * 优势在于，通过随机数获取到1-100的值后，可以直接定位到对应的奖品信息，通过这样的方式把轮训算奖的时间复杂度从O(n) 降低到 0(1)
      * @param strategyId
-     * @param awardRateInfoList
+     * @param awardRateVOList
      */
-    void initRateTuple(Long strategyId, List<AwardRateInfo> awardRateInfoList);
+    void initRateTuple(Long strategyId, List<AwardRateVO> awardRateVOList);
 
     /**
      * 判断是否完成元祖初始化

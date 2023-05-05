@@ -6,8 +6,8 @@ import com.tianyin.lottery.domain.strategy.model.aggregates.StrategyRich;
 import com.tianyin.lottery.domain.strategy.model.res.DrawResult;
 import com.tianyin.lottery.domain.strategy.model.req.DrawReq;
 import com.tianyin.lottery.domain.strategy.model.vo.AwardBriefVO;
-import com.tianyin.lottery.domain.strategy.model.vo.AwardRateInfo;
-import com.tianyin.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import com.tianyin.lottery.domain.strategy.model.vo.AwardRateVO;
+import com.tianyin.lottery.domain.strategy.model.vo.DrawAwardVO;
 import com.tianyin.lottery.domain.strategy.model.vo.StrategyBriefVO;
 import com.tianyin.lottery.domain.strategy.repository.IStrategyRepository;
 import com.tianyin.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
@@ -82,11 +82,11 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
         if (drawAlgorithm.isExistRateTuple(strategyId)) return;
 
         // 将 strategyDetailList 转换为 awardRateInfoList 实现初始化
-        List<AwardRateInfo> awardRateInfoList = new ArrayList<>(strategyDetailList.size());
+        List<AwardRateVO> awardRateVOList = new ArrayList<>(strategyDetailList.size());
         for (StrategyDetailVO strategyDetail : strategyDetailList)
-            awardRateInfoList.add(new AwardRateInfo(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
+            awardRateVOList.add(new AwardRateVO(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
 
-        drawAlgorithm.initRateTuple(strategyId, awardRateInfoList);
+        drawAlgorithm.initRateTuple(strategyId, awardRateVOList);
 
     }
 
@@ -99,7 +99,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
         }
 
         AwardBriefVO award = super.queryAwardInfoByAwardId(awardId);
-        DrawAwardInfo drawAwardInfo = new DrawAwardInfo(award.getAwardId(), award.getAwardType(), award.getAwardName(), award.getAwardContent());
+        DrawAwardVO drawAwardInfo = new DrawAwardVO(uId, award.getAwardId(), award.getAwardType(), award.getAwardName(), award.getAwardContent());
         drawAwardInfo.setStrategyMode(strategy.getStrategyMode());
         drawAwardInfo.setGrantType(strategy.getGrantType());
         drawAwardInfo.setGrantDate(strategy.getGrantDate());

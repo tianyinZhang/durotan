@@ -1,6 +1,8 @@
 package com.tianyin.lottery.domain.rule.model.req;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
@@ -10,6 +12,8 @@ import java.util.Map;
  * @date: 2023/5/4
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DecisionMatterReq {
 
     /** 规则树ID */

@@ -2,6 +2,8 @@ package com.tianyin.lottery.application.process;
 
 import com.tianyin.lottery.application.process.req.DrawProcessReq;
 import com.tianyin.lottery.application.process.res.DrawProcessResult;
+import com.tianyin.lottery.application.process.res.RuleQuantificationCrowdResult;
+import com.tianyin.lottery.domain.rule.model.req.DecisionMatterReq;
 
 /**
  * @description: 活动抽奖流程编排接口定义
@@ -17,4 +19,12 @@ public interface IActivityProcess {
      * @return    抽奖结果
      */
     DrawProcessResult doDrawProcess(DrawProcessReq req);
+
+    /**
+     * 规则量化人群，返回可参与的活动ID
+     *
+     * @param req 规则请求
+     * @return    量化结果，用户可以参与的活动ID
+     */
+    public RuleQuantificationCrowdResult doRuleQuantificationCrowd(DecisionMatterReq req);
 }
