@@ -1,6 +1,6 @@
 package com.tianyin.lottery.domain.award.service.goods;
 
-import com.tianyin.lottery.domain.award.repository.IAwardRepository;
+import com.tianyin.lottery.domain.award.repository.IOrderRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
@@ -14,18 +14,18 @@ import javax.annotation.Resource;
 public class DistributionBase {
 
     @Resource
-    private IAwardRepository awardRepository;
+    private IOrderRepository awardRepository;
 
     /**
-     * 后期添加更新分库分表中，用户个人的抽奖记录表中奖品发奖状态
+     * 添加更新分库分表中，用户个人的抽奖记录表中奖品发奖状态
      * @param uId               用户ID
      * @param orderId           订单ID
      * @param awardId           奖品ID
      * @param awardState        奖品状态
      * @param awardStateInfo    奖品状态信息
      */
-    protected void updateUserAwardState(String uId, String orderId, String awardId, Integer awardState, String awardStateInfo) {
-
+    protected void updateUserAwardState(String uId, Long orderId, String awardId, Integer grantState) {
+        awardRepository.updateUserAwardState(uId, orderId, awardId, grantState);
     }
 
 }

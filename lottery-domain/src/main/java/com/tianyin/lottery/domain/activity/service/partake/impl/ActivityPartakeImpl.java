@@ -36,9 +36,6 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
     @Resource
     private IUserTakeActivityRepository userTakeActivityRepository;
 
-    @Resource
-    private Map<Constants.Ids, IIdGenerator> iIdGenerator;
-
     @Override
     protected UserTakeActivityVO queryNoConsumedTakeActivityOrder(Long activityId, String uId) {
         return userTakeActivityRepository.queryNoConsumedTakeActivityOrder(activityId, uId);
@@ -140,6 +137,11 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
         } finally {
             dbRouter.clear();
         }
+    }
+
+    @Override
+    public void updateInvoiceMqState(String uId, Long orderId, Integer mqState) {
+        userTakeActivityRepository.updateInvoiceMqState(uId, orderId, mqState);
     }
 
 }

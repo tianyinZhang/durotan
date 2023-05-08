@@ -51,6 +51,9 @@ public class UserStrategyExport {
     /** 防重ID */
     private String uuid;
 
+    /** 消息发送状态（0未发送、1发送成功、2发送失败） */
+    private Integer MqState;
+
     /** 创建时间 */
     private Date createTime;
 
@@ -167,6 +170,14 @@ public class UserStrategyExport {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public Integer getMqState() {
+        return MqState;
+    }
+
+    public void setMqState(Integer mqState) {
+        MqState = mqState;
     }
 
     public Date getCreateTime() {

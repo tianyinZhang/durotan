@@ -55,7 +55,7 @@ public class SpringRunnerTest {
 
         // 3. 封装发奖参数
         DrawAwardVO drawAwardInfo = drawResult.getDrawAwardInfo();
-        GoodsReq goodsReq = new GoodsReq(drawResult.getUId(), "1821693217682196"
+        GoodsReq goodsReq = new GoodsReq(drawResult.getUId(), 2109313442431L
                 , drawAwardInfo.getAwardId(), drawAwardInfo.getAwardName(), drawAwardInfo.getAwardContent());
 
         // 4. 根据 awardType 从抽奖工厂中获取对应的发奖服务并执行
