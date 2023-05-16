@@ -39,6 +39,21 @@ spring:
       ack-mode: manual_immediate
       missing-topics-fatal: false
 
+# xxl-job
+# http://localhost:7397/xxl-job-admin
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:7397/xxl-job-admin
+    executor:
+      address:
+      appname: lottery-job
+      ip:
+      port: 9998
+      logpath: /Users/tianyinzhang/data/applogs/xxl-job/jobhandler
+      logretentiondays: 50
+    accessToken: default_token
+
 # 多数据源路由配置
 mini-db-router:
   jdbc:

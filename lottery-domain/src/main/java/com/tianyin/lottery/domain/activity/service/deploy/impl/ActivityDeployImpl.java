@@ -2,6 +2,7 @@ package com.tianyin.lottery.domain.activity.service.deploy.impl;
 
 import com.tianyin.lottery.domain.activity.model.aggregates.ActivityConfigRich;
 import com.tianyin.lottery.domain.activity.model.req.ActivityConfigReq;
+import com.tianyin.lottery.domain.activity.model.vo.ActivityVO;
 import com.tianyin.lottery.domain.activity.repository.IActivityRepository;
 import com.tianyin.lottery.domain.activity.service.deploy.IActivityDeploy;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
- * @description:
+ * @description: 活动部署服务实现类
  * @author：Tianyin Zhang
  * @date: 2023/4/23
  */
@@ -58,6 +60,11 @@ public class ActivityDeployImpl implements IActivityDeploy {
     @Override
     public void updateActivity(ActivityConfigReq req) {
 
+    }
+
+    @Override
+    public List<ActivityVO> scanToDoActivityList(Long id) {
+        return activityRepository.scanToDoActivityList(id);
     }
 
 
