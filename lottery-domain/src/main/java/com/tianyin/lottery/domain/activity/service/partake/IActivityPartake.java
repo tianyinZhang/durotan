@@ -4,6 +4,9 @@ import com.tianyin.lottery.common.Result;
 import com.tianyin.lottery.domain.activity.model.req.PartakeReq;
 import com.tianyin.lottery.domain.activity.model.res.PartakeResult;
 import com.tianyin.lottery.domain.activity.model.vo.DrawOrderVO;
+import com.tianyin.lottery.domain.activity.model.vo.InvoiceVO;
+
+import java.util.List;
 
 /**
  * @description:    参与抽奖活动接口
@@ -36,5 +39,13 @@ public interface IActivityPartake {
      * @param mqState   MQ 发送状态
      */
     void updateInvoiceMqState(String uId, Long orderId, Integer mqState);
+
+    /**
+     * 扫描发货单 MQ 状态，打印未发送 MQ 的单子并进行补偿
+     * @param dbCount   指定分库
+     * @param tbCount   指定分表
+     * @return          发货单
+     */
+    List<InvoiceVO> scanInvoiceMqState(int dbCount, int tbCount);
 
 }

@@ -5,8 +5,10 @@ import cn.bugstack.middleware.db.router.annotation.DBRouterStrategy;
 import com.tianyin.lottery.infrastructure.po.UserStrategyExport;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
- * @description:
+ * @description: 用户策略计算结果表
  * @author：Tianyin Zhang
  * @date: 2023/4/26
  */
@@ -44,5 +46,12 @@ public interface IUserStrategyExportDao {
      */
     @DBRouter
     void updateInvoiceMqState(UserStrategyExport userStrategyExport);
+
+    /**
+     * 扫描发货单 MQ 状态，扫描未发送 MQ 的单子并进行补偿
+     *
+     * @return 发货单
+     */
+    List<UserStrategyExport> scanInvoiceMqState();
 
 }
